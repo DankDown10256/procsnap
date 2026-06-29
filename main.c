@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "proc.h"
 
 void usage(void) {
     fprintf(stderr, "Usage:\n procsnap <pid> (find a PID)\n procsnap --json <pid> (json output mode)\n procsnap --diff <pid> (view diff in a given PID)\n procsnap -g <name> ");
@@ -54,7 +55,11 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             else {
-                printf("PID valid: %ld\n", pid);
+                ProcInfo info = get_proc_infos(pid);
+                if (info.name[0] == '\0' ) {
+                    return 1;
+                }
+                printf("PID infos:\n Name: %s\n State: %c\n PPID: %ld\n", info.name, info.state, info.ppid);
             }
         }
     }
