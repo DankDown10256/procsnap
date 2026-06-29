@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
                 if (info.name[0] == '\0' ) {
                     return 1;
                 }
-                printf("PID infos:\n Name: %s\n State: %c\n PPID: %ld\n", info.name, info.state, info.ppid);
+                printf("PID infos:\n Name: %s\n State: %c\n PPID: %ld\n VmRSS: %lu\n VmSize: %lu\n", info.name, info.state, info.ppid, info.vmrss, info.vmsize);
             }
         }
     }
