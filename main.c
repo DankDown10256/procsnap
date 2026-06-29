@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "proc.h"
+#include "json_output.h"
 
 void usage(void) {
     fprintf(stderr, "Usage:\n procsnap <pid> (find a PID)\n procsnap --json <pid> (json output mode)\n procsnap --diff <pid> (view diff in a given PID)\n procsnap -g <name>\n");
@@ -17,7 +18,19 @@ int main(int argc, char *argv[]) {
                     return 1;
                 }
                 else {
-                    // code JSON
+                    char *endptr;
+                    long pid = strtol(argv[2], &endptr, 10);
+                    if (*endptr != '\0' || pid <= 0) {
+                        fprintf(stderr, "Entry not valid\n");
+                        return 1;
+                    }
+
+                    ProcInfo info = get_proc_infos(pid);
+                    if (info.name[0] == '\0') {
+                        fprintf(stderr, "Process not found\n");
+                        return 1;
+                    }
+                    print_json(info);
                 }
             }
             else if (strcmp(argv[1], "--diff") == 0) {
