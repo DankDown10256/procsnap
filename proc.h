@@ -7,7 +7,7 @@ typedef struct {
     long  ppid;
     unsigned long vmrss;
     unsigned long vmsize;
-    char cmdline[1024];
+    char cmdline[4096];
 } ProcInfo;
 
 ProcInfo get_proc_infos(long pid);

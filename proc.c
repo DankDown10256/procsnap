@@ -54,5 +54,23 @@ ProcInfo get_proc_infos (long pid) {
         sscanf(line_vmsize, "VmSize: %lu", &info.vmsize);
     }
     close(fd_status);
+
+    char path_cmdline[64];
+    snprintf(path_cmdline, sizeof(path_cmdline), "/proc/%ld/cmdline", pid);
+    int fd_cmdline = open(path_cmdline, O_RDONLY);
+    if (fd_cmdline == -1) {
+        fprintf(stderr, "PID Not found\n");
+        return info;
+    }
+    char buffer_cmdline[4096];
+    ssize_t o = read(fd_cmdline, buffer_cmdline, sizeof(buffer_cmdline) - 1);
+    buffer_cmdline[o] = '\0';
+    for (int i = 0; i < o - 1; i++) {
+        if (buffer_cmdline[i] == '\0') {
+            buffer_cmdline[i] = ' ';
+        }
+    }
+    snprintf(info.cmdline, sizeof(info.cmdline), "%s", buffer_cmdline);
+    close(fd_cmdline);
     return info;
 }

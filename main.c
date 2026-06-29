@@ -4,7 +4,7 @@
 #include "proc.h"
 
 void usage(void) {
-    fprintf(stderr, "Usage:\n procsnap <pid> (find a PID)\n procsnap --json <pid> (json output mode)\n procsnap --diff <pid> (view diff in a given PID)\n procsnap -g <name> ");
+    fprintf(stderr, "Usage:\n procsnap <pid> (find a PID)\n procsnap --json <pid> (json output mode)\n procsnap --diff <pid> (view diff in a given PID)\n procsnap -g <name>\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
                 if (info.name[0] == '\0' ) {
                     return 1;
                 }
-                printf("PID infos:\n Name: %s\n State: %c\n PPID: %ld\n VmRSS: %lu\n VmSize: %lu\n", info.name, info.state, info.ppid, info.vmrss, info.vmsize);
+                printf("PID infos:\n Name: %s\n State: %c\n PPID: %ld\n VmRSS: %lu\n VmSize: %lu\n Command Line: %s\n", info.name, info.state, info.ppid, info.vmrss, info.vmsize, info.cmdline);
             }
         }
     }
