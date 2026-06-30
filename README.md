@@ -12,4 +12,4 @@ you can open issues I'm open to all feedbacks and help.
 Thanks.
 
 ## License
-procsnap is licensed under the GNU General Public License v2.0 (or later). See [COPYING](COPYING) for details.
+procsnap is licensed under the GNU General Public License v2.0 (or later). See [LICENSE](LICENSE) for details.
