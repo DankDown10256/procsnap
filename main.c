@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "diff.h"
+#include <unistd.h>
 
 void usage(void) {
   fprintf(stderr, "Usage:\n procsnap <pid> (find a PID)\n procsnap --json "
@@ -56,7 +58,22 @@ int main(int argc, char *argv[]) {
           fprintf(stderr, "Entry not valid\n");
           return 1;
         } else {
-          // code diff
+            char *endptr;
+            long pid = strtol(argv[2], &endptr, 10);
+            if (*endptr != '\0' || pid < 0) {
+                fprintf(stderr, "Entry not valid\n");
+                return 1;
+            }
+            ProcInfo before = get_proc_infos(pid);
+            if (before.name[0] == '\0') {
+                return 1;
+            }
+            sleep(1);
+            ProcInfo after = get_proc_infos(pid);
+            if (after.name[0] == '\0') {
+                return 1;
+            }
+            print_diff(before, after);
         }
       } else if (strcmp(argv[1], "-g") == 0) {
         // g mode

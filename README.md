@@ -20,7 +20,7 @@ Once the previous step is complete, you can launch the tool.
 ```bash
 ./procsnap <pid>          (see basic infos for a given PID)
 ./procsnap --json <pid>   (same as previous command but with JSON output)
-./procsnap --diff <pid>   (in dev)
+./procsnap --diff <pid>   (see diff in VmRSS, VmSize or State of a given PID with a 1 sec interval)
 ./procsnap -g <name>      (in dev)
 ```
 
