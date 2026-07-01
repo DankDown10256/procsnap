@@ -2,7 +2,7 @@
 # Procsnap
 #
 # @file
-# @version 0.3
+# @version 1.0.0
 
 CC = gcc
 CFLAGS = -Wall -Wextra
