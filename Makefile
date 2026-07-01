@@ -7,8 +7,8 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
 
-procsnap: main.c proc.c print_json.c diff.c
-	$(CC) $(CFLAGS) -o procsnap main.c proc.c print_json.c diff.c
+procsnap: main.c proc.c print_json.c diff.c search.c
+	$(CC) $(CFLAGS) -o procsnap main.c proc.c print_json.c diff.c search.c
 
 clean:
 	rm -f procsnap
