@@ -22,6 +22,7 @@
 #include <string.h>
 #include "diff.h"
 #include <unistd.h>
+#include "search.h"
 
 void usage(void) {
   fprintf(stderr, "Usage:\n procsnap <pid> (find a PID)\n procsnap --json "
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
           return 1;
         } else {
           // code g
-          printf("Process name: %s\n", argv[2]);
+          proc_dir(argv[2]);
         }
       } else {
         fprintf(stderr, "Invalid Arguments\n");
