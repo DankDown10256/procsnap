@@ -35,8 +35,9 @@ ProcInfo get_proc_infos(long pid) {
   char buf[4096];
   ssize_t n = read(fd, buf, sizeof(buf) - 1);
 
-  if (n == -1) {
-    fprintf(stderr, "Error in reading\n");
+  if (n < 0) {
+    perror(path);
+    close(fd);
     return info;
   }
   buf[n] = '\0';
@@ -51,15 +52,18 @@ ProcInfo get_proc_infos(long pid) {
   snprintf(path_status, sizeof(path_status), "/proc/%ld/status", pid);
   int fd_status = open(path_status, O_RDONLY);
   if (fd_status == -1) {
-    fprintf(stderr, "PID Not found\n");
+    perror(path_status);
+    memset(&info, 0, sizeof(info));
     return info;
   }
 
   char buffer[4096];
   ssize_t m = read(fd_status, buffer, sizeof(buffer) - 1);
 
-  if (m == -1) {
-    fprintf(stderr, "Error in reading\n");
+  if (m < 0) {
+    perror(path_status);
+    close(fd_status);
+    memset(&info, 0, sizeof(info));
     return info;
   }
   buffer[m] = '\0';
@@ -77,11 +81,18 @@ ProcInfo get_proc_infos(long pid) {
   snprintf(path_cmdline, sizeof(path_cmdline), "/proc/%ld/cmdline", pid);
   int fd_cmdline = open(path_cmdline, O_RDONLY);
   if (fd_cmdline == -1) {
-    fprintf(stderr, "PID Not found\n");
+    perror(path_cmdline);
+    memset(&info, 0, sizeof(info));
     return info;
   }
   char buffer_cmdline[4096];
   ssize_t o = read(fd_cmdline, buffer_cmdline, sizeof(buffer_cmdline) - 1);
+  if (o < 0) {
+    perror(path_cmdline);
+    close(fd_cmdline);
+    memset(&info, 0, sizeof(info));
+    return info;
+  }
   buffer_cmdline[o] = '\0';
   for (int i = 0; i < o - 1; i++) {
     if (buffer_cmdline[i] == '\0') {
