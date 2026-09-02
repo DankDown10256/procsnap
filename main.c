@@ -74,7 +74,11 @@ int main(int argc, char *argv[]) {
             if (after.name[0] == '\0') {
                 return 1;
             }
-            print_diff(before, after);
+            if (memcmp(&before, &after, sizeof(ProcInfo)) != 0) {
+                print_diff(before, after);
+            } else {
+                printf("No changes detected\n");
+            }
         }
       } else if (strcmp(argv[1], "-g") == 0) {
         // g mode
