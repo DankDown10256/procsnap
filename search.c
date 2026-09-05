@@ -25,6 +25,7 @@
 void proc_dir (const char *name) {
     DIR *dir = opendir("/proc");
     struct dirent *entry;
+    int found = 0;
     while ((entry = readdir(dir)) != NULL) {
         char *endptr;
         long pid = strtol(entry->d_name, &endptr, 10);
@@ -32,8 +33,12 @@ void proc_dir (const char *name) {
             ProcInfo info = get_proc_infos(pid);
             if (strcmp(info.name, name) == 0) {
                 printf("Your process PID was found: %ld\n", pid);
+                found = 1;
             }
         }
     }
     closedir(dir);
+    if (!found) {
+        printf("Can't find process named %s\n", name);
+    }
 }
