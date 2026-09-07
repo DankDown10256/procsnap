@@ -46,7 +46,7 @@ I will be happy if you want to open issues, give feedback, or even contribute.
 
 ## Contributions
 
-If you want to contribute to this project, you can follow the instructions here: [CONTRIBUTTING.md](CONTRIBUTTING.md).
+If you want to contribute to this project, you can follow the instructions here: [CONTRIBUTTING.md](CONTRIBUTING.md).
 
 # Thanks
 
