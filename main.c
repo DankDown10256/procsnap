@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
         } else {
             char *endptr;
             long pid = strtol(argv[2], &endptr, 10);
-            if (*endptr != '\0' || pid < 0) {
+            if (*endptr != '\0' || pid <= 0) {
                 fprintf(stderr, "Entry not valid\n");
                 return 1;
             }
