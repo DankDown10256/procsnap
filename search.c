@@ -24,6 +24,10 @@
 
 void proc_dir (const char *name) {
     DIR *dir = opendir("/proc");
+    if (!dir) {
+        perror("opendir(/proc)");
+        return;
+    }
     struct dirent *entry;
     int found = 0;
     while ((entry = readdir(dir)) != NULL) {
