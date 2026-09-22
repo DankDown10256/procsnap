@@ -53,6 +53,9 @@ int main(int argc, char *argv[]) {
           }
           print_json(info);
         }
+      } else if (strcmp(argv[1], "--version") == 0) {
+          printf("Procsnap current version is : 1.0.8\n");
+          return 1;
       } else if (strcmp(argv[1], "--diff") == 0) {
         // diff mode
         if (argc < 3) {
