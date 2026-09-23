@@ -24,6 +24,10 @@
 #include <unistd.h>
 #include "search.h"
 
+#ifndef PROCSNAP_VERSION
+#define PROCSNAP_VERSION "unknown"
+#endif
+
 void usage(void) {
   fprintf(stderr, "Usage:\n procsnap <pid> (find a PID)\n procsnap --json "
                   "<pid> (json output mode)\n procsnap --diff <pid> (view diff "
@@ -54,7 +58,7 @@ int main(int argc, char *argv[]) {
           print_json(info);
         }
       } else if (strcmp(argv[1], "--version") == 0) {
-          printf("Procsnap current version is : 1.0.8\n");
+          printf("Procsnap current version is : %s\n", PROCSNAP_VERSION);
           return 1;
       } else if (strcmp(argv[1], "--diff") == 0) {
         // diff mode
