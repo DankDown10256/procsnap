@@ -2,7 +2,7 @@
 # Procsnap
 #
 # @file
-# @version 1.0.9
+# @version 1.2.0
 
 VERSION := $(shell grep -m1 '@version' Makefile | sed 's/.*@version *//')
 

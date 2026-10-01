@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cc: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: make CC=${{ matrix.cc }}
+
+      - name: Success message
+        if: success()
+        run: |
+          echo "::notice title=Build OK::procsnap compiled successfully with ${{ matrix.cc }}"
+          echo "### Build passed" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Failure message
+        if: failure()
+        run: |
+          echo "::error title=Build failed::procsnap failed to compile with ${{ matrix.cc }}, check the Build step logs"
+          echo "### Build failed see error up and try to fix or request a maintainer for review" >> "$GITHUB_STEP_SUMMARY"
