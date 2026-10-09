@@ -60,6 +60,9 @@ int main(int argc, char *argv[]) {
       } else if (strcmp(argv[1], "--version") == 0) {
           printf("Procsnap current version is : %s\n", PROCSNAP_VERSION);
           return 1;
+      } else if (strcmp(argv[1], "--help") == 0) {
+          usage();
+          return 0;
       } else if (strcmp(argv[1], "--diff") == 0) {
         // diff mode
         if (argc < 3) {
