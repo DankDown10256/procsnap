@@ -20,7 +20,7 @@ install: procsnap
 	install -m 755 procsnap /usr/local/bin/procsnap
 
 update:
-	git pull && sudo make install
+	git pull && sudo make clean install
 
 uninstall:
 	rm -f /usr/local/bin/procsnap
