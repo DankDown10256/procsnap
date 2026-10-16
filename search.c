@@ -36,13 +36,16 @@ void proc_dir (const char *name) {
         if (*endptr == '\0' && pid > 0) {
             ProcInfo info = get_proc_infos(pid);
             if (strcmp(info.name, name) == 0) {
-                printf("Your process PID was found: %ld\n", pid);
-                found = 1;
+                if (found == 0)
+                    printf("Your process PID was found: %ld", pid);
+                else
+                    printf(", %ld\n", pid);
+                found ++;
             }
         }
     }
     closedir(dir);
     if (!found) {
-        printf("Can't find process named %s\n", name);
+        printf("Can't find any  process named %s\n", name);
     }
 }
