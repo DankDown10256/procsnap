@@ -15,14 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
-#include "json_output.h"
-#include "proc.h"
+#include "src/json_output.h"
+#include "src/proc.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "diff.h"
+#include "src/diff.h"
 #include <unistd.h>
-#include "search.h"
+#include "src/search.h"
 
 #ifndef PROCSNAP_VERSION
 #define PROCSNAP_VERSION "unknown"
