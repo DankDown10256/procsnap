@@ -44,9 +44,11 @@ void proc_dir (const char *name) {
                 else
                     printf(", %ld\n", pid);
                 found ++;
-                char k_d;
-                printf("Kill or show diff ? (k/d)\n");
-                scanf(" %c", &k_d);
+                printf("Kill, show diff or continue ? [k/d/C]\n");
+                char buf[16];
+                if (!fgets(buf, sizeof buf, stdin))
+                    break;
+                char k_d = buf[0];
                 if (k_d == 'k') {
                     kill(pid, SIGTERM);
                     printf("PID successfully killed.\n");
@@ -60,6 +62,12 @@ void proc_dir (const char *name) {
                     } else {
                         printf("No changes detected\n");
                     }
+                }
+                else if (k_d == 'c' || k_d == 'C' || k_d == '\n') {
+                    continue;
+                }
+                else {
+                    printf("Please enter a valid given argument\n");
                 }
             }
         }
