@@ -8,9 +8,10 @@ VERSION := $(shell grep -m1 '@version' Makefile | sed 's/.*@version *//')
 
 CC = gcc
 CFLAGS = -Wall -Wextra -DPROCSNAP_VERSION=\"$(VERSION)\"
+SRC = main.c src/proc.c src/print_json.c src/diff.c src/search.c
 
-procsnap: main.c proc.c print_json.c diff.c search.c
-	$(CC) $(CFLAGS) -o procsnap main.c proc.c print_json.c diff.c search.c
+procsnap: $(SRC)
+	$(CC) $(CFLAGS) -o procsnap $(SRC)
 
 clean:
 	rm -f procsnap
