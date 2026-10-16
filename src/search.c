@@ -16,11 +16,14 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 #include "search.h"
+#include "diff.h"
 #include <dirent.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "proc.h"
 #include <stdio.h>
 #include <string.h>
+#include <signal.h>
 
 void proc_dir (const char *name) {
     DIR *dir = opendir("/proc");
@@ -37,10 +40,27 @@ void proc_dir (const char *name) {
             ProcInfo info = get_proc_infos(pid);
             if (strcmp(info.name, name) == 0) {
                 if (found == 0)
-                    printf("Your process PID was found: %ld", pid);
+                    printf("Your process PID was found: %ld\n", pid);
                 else
                     printf(", %ld\n", pid);
                 found ++;
+                char k_d;
+                printf("Kill or show diff ? (k/d)\n");
+                scanf(" %c", &k_d);
+                if (k_d == 'k') {
+                    kill(pid, SIGTERM);
+                    printf("PID successfully killed.\n");
+                }
+                else if (k_d == 'd') {
+                    ProcInfo before = get_proc_infos(pid);
+                    sleep(1);
+                    ProcInfo after = get_proc_infos(pid);
+                    if (memcmp(&before, &after, sizeof(ProcInfo)) != 0) {
+                        print_diff(before, after);
+                    } else {
+                        printf("No changes detected\n");
+                    }
+                }
             }
         }
     }
